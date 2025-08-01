@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarberConnect - Agendamento</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="app">
+        <div id="client-view" class="page">
+            <header>
+                <h1>BarberConnect</h1>
+                <p>Agende seu horário com os melhores barbeiros!</p>
+                <div class="header-buttons">
+                    <button id="admin-login-btn">Admin</button>
+                    <button id="barber-login-btn">Área do Barbeiro</button>
+                </div>
+            </header>
+            <section id="barbershop-list">
+                <h2>Barbearias e Barbeiros</h2>
+            </section>
+        </div>
+
+        <div id="barbershop-details-view" class="page hidden">
+            <header>
+                <button class="back-btn">Voltar</button>
+                <h1 id="barbershop-name-details"></h1>
+            </header>
+            <section id="services-list">
+                <h2>Serviços e Combos</h2>
+            </section>
+            <section id="schedule-booking">
+                <h2>Escolha um horário</h2>
+                <div id="schedule-times"></div>
+                <button id="confirm-appointment-btn" class="main-btn" disabled>Confirmar Agendamento</button>
+            </section>
+        </div>
+
+        <div id="auth-view" class="page hidden">
+            <header>
+                <button class="back-btn">Voltar</button>
+                <h1 id="auth-title"></h1>
+            </header>
+            <section>
+                <div class="auth-box">
+                    <h2>Já tem conta? Faça login.</h2>
+                    <form id="login-form">
+                        <input type="text" id="login-username" placeholder="Usuário" required>
+                        <input type="password" id="login-password" placeholder="Senha" required>
+                        <button type="submit" class="main-btn">Entrar</button>
+                    </form>
+                </div>
+                <hr>
+                <div class="auth-box">
+                    <h2>Não tem conta? Cadastre-se.</h2>
+                    <form id="register-form">
+                        <input type="text" id="register-username" placeholder="Usuário" required>
+                        <input type="password" id="register-password" placeholder="Senha" required>
+                        <input type="tel" id="register-phone" placeholder="Telefone" required>
+                        <button type="submit" class="main-btn">Cadastrar</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div id="confirmation-view" class="page hidden">
+            <header>
+                <h1>Agendamento Concluído!</h1>
+            </header>
+            <section id="pix-info">
+                <p>Seu agendamento foi concluído. O pagamento está em análise e será aprovado em alguns segundos.</p>
+                <img src="qrcode_pix.png" alt="QR Code para pagamento Pix">
+                <p id="pix-receiver">Josiel Lopes Azeredo</p>
+                <div class="pix-key-container">
+                    <p id="pix-key">Chave Pix: 18912553712</p>
+                    <button id="copy-pix-btn">Copiar</button>
+                </div>
+                <button id="back-home-btn" class="main-btn">Voltar para o Início</button>
+            </section>
+        </div>
+
+        <div id="admin-view" class="page hidden">
+            <header>
+                <h1>Painel do Administrador</h1>
+                <button class="back-btn">Sair</button>
+            </header>
+            <section id="admin-login-section">
+                <h2>Login do Admin</h2>
+                <form id="admin-login-form">
+                    <input type="password" id="admin-password" placeholder="Senha" required>
+                    <button type="submit" class="main-btn">Entrar</button>
+                </form>
+            </section>
+            <section id="admin-dashboard" class="hidden">
+                <h2>Agendamentos Pendentes</h2>
+                <div id="pending-appointments"></div>
+                <hr>
+                <h2>Gerenciar Barbearias</h2>
+                <div id="manage-barbershops"></div>
+            </section>
+        </div>
+
+        <div id="barber-view" class="page hidden">
+            <header>
+                <h1>Área do Barbeiro</h1>
+                <button class="back-btn">Sair</button>
+            </header>
+            <section id="barber-login-section">
+                <div class="auth-box">
+                    <h2>Login do Barbeiro</h2>
+                    <form id="barber-login-form">
+                        <input type="text" id="barber-login-username" placeholder="Usuário" required>
+                        <input type="password" id="barber-login-password" placeholder="Senha" required>
+                        <button type="submit" class="main-btn">Entrar</button>
+                    </form>
+                </div>
+                <hr>
+                <div class="auth-box">
+                    <h2>Cadastre-se</h2>
+                    <form id="barber-register-form">
+                        <input type="text" id="barber-register-username" placeholder="Usuário" required>
+                        <input type="password" id="barber-register-password" placeholder="Senha" required>
+                        <input type="tel" id="barber-register-phone" placeholder="Telefone" required>
+                        <input type="text" id="barbershop-name" placeholder="Nome da Barbearia" required>
+                        <button type="submit" class="main-btn">Cadastrar</button>
+                    </form>
+                </div>
+            </section>
+            <section id="barber-dashboard" class="hidden">
+                <h2>Minha Barbearia</h2>
+                <form id="barbershop-setup-form">
+                    <input type="text" id="barbershop-name-input" placeholder="Nome da Barbearia" required>
+                    <button type="submit" class="main-btn">Salvar Nome</button>
+                </form>
+                <hr>
+                <h2>Serviços e Valores</h2>
+                <form id="add-service-form">
+                    <input type="text" id="service-name" placeholder="Nome do Serviço" required>
+                    <input type="number" id="service-price" placeholder="Valor (R$)" required>
+                    <button type="submit" class="main-btn">Adicionar Serviço</button>
+                </form>
+                <div id="barber-services-list"></div>
+                <hr>
+                <h2>Combos e Valores</h2>
+                <form id="add-combo-form">
+                    <input type="text" id="combo-name" placeholder="Nome do Combo" required>
+                    <input type="number" id="combo-price" placeholder="Valor (R$)" required>
+                    <button type="submit" class="main-btn">Adicionar Combo</button>
+                </form>
+                <div id="barber-combos-list"></div>
+                <hr>
+                <h2>Horários Disponíveis</h2>
+                <div id="barber-schedule-selection"></div>
+                <hr>
+                <h2>Turbinar Perfil</h2>
+                <p>Seu perfil ficará no topo do site por 1 dia. (Pagamento simulado)</p>
+                <button id="boost-profile-btn" class="main-btn">Turbinar por R$ 50/dia</button>
+                <hr>
+                <h2>Agendamentos Aprovados</h2>
+                <div id="approved-barber-appointments"></div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+    
